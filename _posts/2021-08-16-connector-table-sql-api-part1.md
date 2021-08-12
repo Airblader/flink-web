@@ -35,6 +35,8 @@ You are encouraged to follow along with the code in this [repository](github.com
 
 This tutorial assumes that you have some familiarity with Java and objected-oriented programming. 
 
+It would also be useful to have [docker-compose](https://docs.docker.com/compose/install/) installed on your system in order to use the script included in the repository that builds and runs the connector. 
+
 
 # Understand the infrastructure required for a connector
 
@@ -202,24 +204,23 @@ $ cd testing/
 $ ./build_and_run.sh
 ```
 
-This builds the connector, starts a Flink cluster (and a mail server which you will need later), and starts the SQL client for you. 
+This builds the connector, starts a Flink cluster, a [test email server](https://greenmail-mail-test.github.io/greenmail/) which you will need later), and the [SQL client](https://ci.apache.org/projects/flink/flink-docs-release-1.13/docs/dev/table/sqlclient/) for you. You may need to run this script as a super user. If successful, you should see the SQL CLI:
 
-// maybe show some output
+![image](https://ci.apache.org/projects/flink/flink-docs-release-1.13/fig/sql_client_demo.gif)
 
 You can now create a table with your connector by executing the following statement with the SQL client:
 
 ```sql
-CREATE TABLE T (subject STRING, content STRING) 
-WITH ('connector' = 'imap');
+CREATE TABLE T (subject STRING, content STRING) WITH ('connector' = 'imap');
 
 SELECT * FROM T;
 ```
 
-*Note:* The schema must be exactly the following since it is currently hardcoded into the connector.
+*Note:* The schema must be exactly as written since it is currently hardcoded into the connector.
 
 You should be able to see some static data.  
 
-// output
+// output example
 
 Now that you have a working connector, the next step is to make it do something more useful than returning static data.
 
