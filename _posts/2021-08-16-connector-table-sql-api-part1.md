@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Implementing a custom source connector for Table API and SQL - Part One "
-date: 2021-08-16T00:00:00.000Z
+date: 2021-08-18T00:00:00.000Z
 authors:
 - Ingo Buerk:
   name: "Ingo Buerk"
