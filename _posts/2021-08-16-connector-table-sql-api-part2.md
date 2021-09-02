@@ -413,9 +413,8 @@ The query above should now run continuously but no rows will be produced since i
 ```sh
 $ echo "This is the email body" | mailx -Sv15-compat \
         -s"Email Subject" \
-        -Smta=imap: \
+        -Smta="smtp://alice:alice@localhost:3025" \
         alice@acme.org
-
 ```
 
 The row “Email Subject” should now have appeared as a row in your output. Your source connector is working!
