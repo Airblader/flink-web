@@ -128,8 +128,8 @@ public class ImapTableSource implements ScanTableSource {
 
     @Override
     public ScanRuntimeProvider getScanRuntimeProvider(ScanContext ctx) {
-        final ImapSourceFunction sourceFunction = new ImapSourceFunction(options, columnNames);
-        return SourceFunctionProvider.of(sourceFunction, true);
+        final ImapSource source = new ImapSource(options, columnNames);
+        return SourceFunctionProvider.of(source, true);
     }
 
     @Override
