@@ -29,7 +29,7 @@ You are encouraged to follow along with the code in this [repository](github.com
 
 This tutorial assumes that you have:
 
-- followed the steps outlined in [part one](#) of this tutorial
+- followed the steps outlined in [part one](/2021/08/27/connector-table-sql-api-part1) of this tutorial
 - some familiarity with Java and objected-oriented programming
 
 
