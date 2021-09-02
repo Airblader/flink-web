@@ -295,7 +295,7 @@ public class ImapSource extends RichSourceFunction<RowData> {
     private transient IMAPFolder folder;
 
     private void connect() throws Exception {
-        var session = Session.getInstance(getSessionProperties(), null);
+        final Session session = Session.getInstance(getSessionProperties(), null);
         store = session.getStore();
         store.connect(options.getUser(), options.getPassword());
 
