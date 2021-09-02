@@ -157,7 +157,7 @@ You will also need to indicate whether the source is bounded or not. Currently, 
 
 You now have a working source connector, but in order to use it in Table API or SQL, it needs to be discoverable by Flink. You also need to define how the connector is addressable from a SQL statement when creating a source table. 
 
-You need to implement a [Factory](https://ci.apache.org/projects/flink/flink-docs-master/api/java/org/apache/flink/table/factories/Factory.html), which is a base interface that create object instances from a list of key-value pairs in Flink's Table API and SQL.  A factory is uniquely identified by its class name and `factoryIdentifier()`.  For this tutorial, you will implement the more specific [DynamicTableSourceFactory](https://ci.apache.org/projects/flink/flink-docs-master/api/java/org/apache/flink/table/factories/DynamicTableSourceFactory.html), which allows you to configure a dynamic table connector as well as create `DynamicTableSource` instances.  
+You need to implement a [Factory](https://ci.apache.org/projects/flink/flink-docs-master/api/java/org/apache/flink/table/factories/Factory.html), which is a base interface that creates object instances from a list of key-value pairs in Flink's Table API and SQL.  A factory is uniquely identified by its class name and `factoryIdentifier()`.  For this tutorial, you will implement the more specific [DynamicTableSourceFactory](https://ci.apache.org/projects/flink/flink-docs-master/api/java/org/apache/flink/table/factories/DynamicTableSourceFactory.html), which allows you to configure a dynamic table connector as well as create `DynamicTableSource` instances.  
 
 ```java
 import java.util.HashSet;
