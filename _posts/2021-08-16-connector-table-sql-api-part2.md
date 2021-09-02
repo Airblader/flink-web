@@ -439,7 +439,7 @@ public class ImapSource extends RichSourceFunction<RowData> {
 
     private void collectMessage(SourceFunction.SourceContext<RowData> ctx, Message message)
         throws MessagingException {
-        var row = new GenericRowData(columnNames.size());
+        final RowData row = new GenericRowData(columnNames.size());
 
         for (int i = 0; i < columnNames.size(); i++) {
             switch (columnNames.get(i)) {
