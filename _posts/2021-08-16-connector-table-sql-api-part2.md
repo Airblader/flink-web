@@ -141,7 +141,7 @@ public class ImapTableSource implements ScanTableSource {
 }
 ```
 
-Finally, in the `ImapSourceFactory` class, you need to create a `ConfigOption<>` for the hostname, port number, username, and password.  Then you need to report them to Flink. Since all of the current options are mandatory, you can add them to the `requiredOptions()` method in order to do this. 
+Finally, in the `ImapSourceFactory` class, you need to create a `ConfigOption<>` for the hostname, port number, username, and password.  Then you need to report them to Flink. Host, user, and password are mandatory and can be added to `requiredOptions()`; the port is optional and can be added to `optionalOptions()` instead.
 
 ```java
 import org.apache.flink.configuration.ConfigOption;
