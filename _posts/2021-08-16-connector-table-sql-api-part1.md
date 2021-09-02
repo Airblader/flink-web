@@ -161,6 +161,7 @@ You need to implement a [Factory](https://ci.apache.org/projects/flink/flink-doc
 
 ```java
 import java.util.HashSet;
+import java.util.Set;
 import org.apache.flink.configuration.ConfigOption;
 import org.apache.flink.table.connector.source.DynamicTableSource;
 import org.apache.flink.table.factories.DynamicTableSourceFactory;
