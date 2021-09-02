@@ -22,7 +22,7 @@ Part two of the tutorial will teach you how to:
 - use [Jakarta Mail](https://eclipse-ee4j.github.io/mail/), a Java library that can send and receive email via the IMAP protocol  
 - write [Flink SQL](https://ci.apache.org/projects/flink/flink-docs-release-1.13/docs/dev/table/sql/overview/) and execute the queries in the Ververica Platform
 
-You are encouraged to follow along with the code in this [repository](github.com/TNG/flink-connector-email). It provides a boilerplate project that also comes with a bundled [docker-compose](https://docs.docker.com/compose/) setup that lets you easily run the connector. You can then try it out with Flink’s SQL client.
+You are encouraged to follow along with the code in this [repository](https://github.com/Airblader/blog-imap). It provides a boilerplate project that also comes with a bundled [docker-compose](https://docs.docker.com/compose/) setup that lets you easily run the connector. You can then try it out with Flink’s SQL client.
 
 
 # Prerequisites
