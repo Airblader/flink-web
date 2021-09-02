@@ -163,7 +163,6 @@ public class ImapSourceFactory implements DynamicTableSourceFactory {
     public Set<ConfigOption<?>> requiredOptions() {
         final Set<ConfigOption<?>> options = new HashSet<>();
         options.add(HOST);
-        options.add(PORT);
         options.add(USER);
         options.add(PASSWORD);
         return options;
