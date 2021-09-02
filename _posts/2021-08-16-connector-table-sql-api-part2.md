@@ -423,6 +423,10 @@ The row “Email Subject” should now have appeared as a row in your output. Yo
 However, since you are still hard-coding the schema produced by the source, defining the table with a different schema will produce errors. You want to be able to define which fields of an email interest you and then produce the data accordingly. To do this, you will use the list of column names from earlier and then look at it when you collect the emails. 
 
 ```java
+import org.apache.flink.table.data.GenericRowData;
+import org.apache.flink.table.data.RowData;
+import org.apache.flink.table.data.TimestampData;
+
 public class ImapSource extends RichSourceFunction<RowData> {
 
     private void collectMessages(SourceFunction.SourceContext<RowData> ctx, Message[] messages) {
