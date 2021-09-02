@@ -393,7 +393,7 @@ $ cd testing/
 $ ./build_and_run.sh
 ```
 
-This time, you will connect to a [GreenMail server](https://greenmail-mail-test.github.io/greenmail/) which is started as part of the [setup](https://github.com/TNG/flink-connector-email/blob/master/testing/docker-compose.yaml):
+This time, you will connect to a [GreenMail server](https://greenmail-mail-test.github.io/greenmail/) which is started as part of the [setup](https://github.com/Airblader/blog-imap/blob/master/testing/docker-compose.yaml):
 
 ```sql
 CREATE TABLE T (
