@@ -12,7 +12,7 @@ excerpt:
 
 # Introduction
 
-In [part one](#) of this tutorial, you learned how to build a custom source connector for Flink. In part two, you will learn how to integrate the connector with a test email inbox through the IMAP protocol, filter out emails, and execute [Flink SQL on the Ververica Platform](https://www.ververica.com/apache-flink-sql-on-ververica-platform). 
+In [part one](/2021/08/27/connector-table-sql-api-part2) of this tutorial, you learned how to build a custom source connector for Flink. In part two, you will learn how to integrate the connector with a test email inbox through the IMAP protocol, filter out emails, and execute [Flink SQL on the Ververica Platform](https://www.ververica.com/apache-flink-sql-on-ververica-platform). 
 
 # Goals
 
