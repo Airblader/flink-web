@@ -67,7 +67,7 @@ public class ImapSourceOptions implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private final String host;
-    private final @Nullable Long port;
+    private final @Nullable Integer port;
     private final @Nullable String user;
     private final @Nullable String password;
 }
