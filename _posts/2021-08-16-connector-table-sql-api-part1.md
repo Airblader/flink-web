@@ -28,7 +28,7 @@ Part one will focus on building a custom source connector and [part two](#) will
 
 Part one of this tutorial will teach you how to build and run a custom source connector to be used with Table API and SQL, two high-level abstractions in Flink.
 
-You are encouraged to follow along with the code in this [repository](github.com/TNG/flink-connector-email). It provides a boilerplate project that also comes with a bundled [docker-compose](https://docs.docker.com/compose/) setup that lets you easily run the connector. You can then try it out with Flink’s SQL client.
+You are encouraged to follow along with the code in this [repository](https://github.com/Airblader/blog-imap). It provides a boilerplate project that also comes with a bundled [docker-compose](https://docs.docker.com/compose/) setup that lets you easily run the connector. You can then try it out with Flink’s SQL client.
 
 
 # Prerequisites
