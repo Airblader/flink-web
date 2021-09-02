@@ -39,7 +39,7 @@ Now that you have a working source connector that can run on Flink, it is time t
 
 You will use [Jakarta Mail](https://eclipse-ee4j.github.io/mail/), a Java library that can be used to send and receive email via IMAP. For simplicity, authentication will use a plain username and password.
 
-This tutorial will focus more on how to implement a connector for Flink. If you want to learn more about the details of how IMAP or Jakarta Mail work, you are encouraged to explore a more extensive implementation at this [repository](github.com/TNG/flink-connector-email). 
+This tutorial will focus more on how to implement a connector for Flink. If you want to learn more about the details of how IMAP or Jakarta Mail work, you are encouraged to explore a more extensive implementation at this [repository](https://github.com/TNG/flink-connector-email). 
 
 In order to fetch emails, you will need to connect to the email server, register a listener for new emails and collect them whenever they arrive, and enter a loop to keep the connector running. 
 
