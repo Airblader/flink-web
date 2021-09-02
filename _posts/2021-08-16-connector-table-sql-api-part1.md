@@ -238,4 +238,4 @@ In this tutorial, you looked into the infrastructure required for a connector an
 
 # Next Steps
 
-In [part two](#), you will integrate this connector with an email inbox through the IMAP protocol. 
+In [part two](/2021/08/27/connector-table-sql-api-part2), you will integrate this connector with an email inbox through the IMAP protocol. 
