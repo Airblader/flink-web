@@ -146,6 +146,7 @@ Finally, in the `ImapSourceFactory` class, you need to create a `ConfigOption<>`
 
 ```java
 import org.apache.flink.configuration.ConfigOption;
+import org.apache.flink.configuration.ConfigOptions;
 import org.apache.flink.table.factories.DynamicTableSourceFactory;
 
 import java.util.HashSet;
