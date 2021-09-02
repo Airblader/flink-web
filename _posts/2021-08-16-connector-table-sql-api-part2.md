@@ -87,6 +87,7 @@ Now you can add an instance of this class to the `ImapSource` and `ImapTableSour
 import org.apache.flink.streaming.api.functions.source.RichSourceFunction;
 import org.apache.flink.table.data.RowData;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ImapSource extends RichSourceFunction<RowData> {
     private final ImapSourceOptions options;
