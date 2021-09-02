@@ -488,7 +488,7 @@ If you want to test the connector with a real mail server, you can import it int
 
 Since the example connector in this blog post is still a bit limited, you will use the finished connector in this [repository](github.com/TNG/flink-connector-email) instead. You can clone that repository and build it the same way to obtain the JAR file.
 
-For this example, let's connect to a Gmail account. This requires SSL and comes with an additional caveat that you either need to enable unsafe apps (which tends to deactivate itself again frequently), or enable two-factor authentication and create an application password (which is more stable and safe). 
+For this example, let's connect to a Gmail account. This requires SSL and comes with an additional caveat that you need to enable two-factor authentication and create an application password to use instead of your real password.
 
 First, head to SQL → Connectors. There you can create a new connector by uploading your JAR file. The platform will detect the connector options automatically. Afterwards, go back to the SQL Editor and you should now be able to use the connector.
 
