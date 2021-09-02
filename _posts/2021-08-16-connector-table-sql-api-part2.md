@@ -92,7 +92,7 @@ public class ImapSource extends RichSourceFunction<RowData> {
     private final ImapSourceOptions options;
     private final List<String> columnNames;
 
-    public ImapSourceFunction(
+    public ImapSource(
         ImapSourceOptions options, 
         List<String> columnNames
     ) {
