@@ -304,6 +304,7 @@ You can now use this method to connect to the mail server when the source is cre
 ```java
 import jakarta.mail.*;
 import org.apache.flink.streaming.api.functions.source.RichSourceFunction;
+import org.apache.flink.streaming.api.functions.source.SourceFunction;
 import org.apache.flink.table.data.RowData;
 
 public class ImapSource extends RichSourceFunction<RowData> {
