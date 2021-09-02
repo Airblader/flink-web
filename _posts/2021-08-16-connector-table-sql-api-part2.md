@@ -168,6 +168,12 @@ public class ImapSourceFactory implements DynamicTableSourceFactory {
         return options;
     }
 
+    @Override
+    public Set<ConfigOption<?>> optionalOptions() {
+        final Set<ConfigOption<?>> options = new HashSet<>();
+        options.add(PORT);
+        return options;
+    }
     // …
 }
 ```
