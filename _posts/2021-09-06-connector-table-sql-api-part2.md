@@ -1,10 +1,12 @@
 ---
 layout: post
 title:  "Implementing a custom source connector for Table API and SQL - Part Two "
-date: 2021-08-27T00:00:00.000Z
+date: 2021-09-06T00:00:00.000Z
 authors:
 - Ingo Buerk:
   name: "Ingo Buerk"
+- Daisy Tsang:
+  name: "Daisy Tsang"
 excerpt: 
 ---
 
@@ -12,7 +14,7 @@ excerpt:
 
 # Introduction
 
-In [part one](/2021/08/27/connector-table-sql-api-part2) of this tutorial, you learned how to build a custom source connector for Flink. In part two, you will learn how to integrate the connector with a test email inbox through the IMAP protocol, filter out emails, and execute [Flink SQL on the Ververica Platform](https://www.ververica.com/apache-flink-sql-on-ververica-platform). 
+In [part one](/2021/09/06/connector-table-sql-api-part2) of this tutorial, you learned how to build a custom source connector for Flink. In part two, you will learn how to integrate the connector with a test email inbox through the IMAP protocol, filter out emails, and execute [Flink SQL on the Ververica Platform](https://www.ververica.com/apache-flink-sql-on-ververica-platform). 
 
 # Goals
 
@@ -29,7 +31,7 @@ You are encouraged to follow along with the code in this [repository](https://gi
 
 This tutorial assumes that you have:
 
-- followed the steps outlined in [part one](/2021/08/27/connector-table-sql-api-part1) of this tutorial
+- followed the steps outlined in [part one](/2021/09/06/connector-table-sql-api-part1) of this tutorial
 - some familiarity with Java and objected-oriented programming
 
 
@@ -75,13 +77,13 @@ public class ImapSourceOptions implements Serializable {
 
 Now you can add an instance of this class to the `ImapSource` and `ImapTableSource` classes previously created (in part one) so it can be used there. Take note of the column names with which the table has been created. This will help later.
 
+
 <div class="note">
   <h5>Hint</h5>
-  <p>The column names would be "subject" and "content" with the SQL executed in part one:
-
-     CREATE TABLE T (subject STRING, content STRING) WITH ('connector' = 'imap');
-  </p>
+  <p>The column names would be "subject" and "content" with the SQL executed in part one:</p>
+  <pre><code class="language-sql">CREATE TABLE T (subject STRING, content STRING) WITH ('connector' = 'imap');</code></pre>
 </div>
+
 
 ```java
 import org.apache.flink.streaming.api.functions.source.RichSourceFunction;
@@ -501,6 +503,11 @@ Since the example connector in this blog post is still a bit limited, you will u
 For this example, let's connect to a Gmail account. This requires SSL and comes with an additional caveat that you need to enable two-factor authentication and create an application password to use instead of your real password.
 
 First, head to SQL → Connectors. There you can create a new connector by uploading your JAR file. The platform will detect the connector options automatically. Afterwards, go back to the SQL Editor and you should now be able to use the connector.
+
+<div class="row front-graphic">
+  <img src="{{ site.baseurl }}/img/blog/2021-09-06-connector-table-sql-api/VVP-SQL-Editor.png" alt="Ververica Platform - SQL Editor"/>
+	<p class="align-center">Ververica Platform - SQL Editor</p>
+</div>
 
 
 # Summary

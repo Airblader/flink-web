@@ -1,10 +1,12 @@
 ---
 layout: post
 title:  "Implementing a Custom Source Connector for Table API and SQL - Part One "
-date: 2021-08-27T00:00:00.000Z
+date: 2021-09-06T00:00:00.000Z
 authors:
 - Ingo Buerk:
   name: "Ingo Buerk"
+- Daisy Tsang:
+  name: "Daisy Tsang"
 excerpt: 
 ---
 
@@ -14,7 +16,7 @@ excerpt:
 
 Apache Flink is a data processing engine that aims to keep [state](https://ci.apache.org/projects/flink/flink-docs-release-1.13/docs/ops/state/state_backends/) locally in order to do computations efficiently. However, Flink does not "own" the data but relies on external systems to ingest and persist data. Connecting to external data input (**sources**) and external data storage (**sinks**) is usually summarized under the term **connectors** in Flink. 
 
-Since connectors are such important components, Flink ships with [connectors for some popular systems](https://ci.apache.org/projects/flink/flink-docs-release-1.13/docs/connectors/table/overview/). But sometimes you may need to read in an uncommon data format and what Flink provides is not enough. This is why Flink also provides [extension points](#) for building custom connectors if you want to connect to a system that is not supported by an existing connector.   
+Since connectors are such important components, Flink ships with [connectors for some popular systems](https://ci.apache.org/projects/flink/flink-docs-release-1.13/docs/connectors/table/overview/). But sometimes you may need to read in an uncommon data format and what Flink provides is not enough. This is why Flink also provides extension points for building custom connectors if you want to connect to a system that is not supported by an existing connector.   
 
 Once you have a source and a sink defined for Flink, you can use its declarative APIs (in the form of the [Table API and SQL](https://ci.apache.org/projects/flink/flink-docs-release-1.13/docs/dev/table/overview/)) to execute queries for data analysis.  
 
@@ -22,7 +24,7 @@ The **Table API** provides more programmatic access while **SQL** is a more univ
 
 In this two-part tutorial, you will explore some of these APIs and concepts by implementing your own custom source connector for reading in data from an email inbox. You will then use Flink to process emails through the [IMAP protocol](https://en.wikipedia.org/wiki/Internet_Message_Access_Protocol). 
 
-Part one will focus on building a custom source connector and [part two](#) will focus on integrating it. 
+Part one will focus on building a custom source connector and [part two](/2021/09/06/connector-table-sql-api-part2) will focus on integrating it. 
 
 # Goals
 
@@ -214,7 +216,7 @@ $ ./build_and_run.sh
 This builds the connector, starts a Flink cluster, a [test email server](https://greenmail-mail-test.github.io/greenmail/) (which you will need later), and the [SQL client](https://ci.apache.org/projects/flink/flink-docs-release-1.13/docs/dev/table/sqlclient/) (which is bundled in the regular Flink distribution) for you. If successful, you should see the SQL CLI:
 
 <div class="row front-graphic">
-  <img src="{{ site.baseurl }}/img/blog/2021-08-27-connector-table-sql-api/flink-sql-client.png" alt="Flink SQL Client"/>
+  <img src="{{ site.baseurl }}/img/blog/2021-09-06-connector-table-sql-api/flink-sql-client.png" alt="Flink SQL Client"/>
 	<p class="align-center">Flink SQL Client</p>
 </div>
 
@@ -226,7 +228,7 @@ CREATE TABLE T (subject STRING, content STRING) WITH ('connector' = 'imap');
 SELECT * FROM T;
 ``` 
 
-*Note:* The schema must be exactly as written since it is currently hardcoded into the connector.
+Note that the schema must be exactly as written since it is currently hardcoded into the connector.
 
 You should be able to see the static data you provided in your source connector earlier, which would be "Subject 1" and "Hello, World!".
 
@@ -239,4 +241,4 @@ In this tutorial, you looked into the infrastructure required for a connector an
 
 # Next Steps
 
-In [part two](/2021/08/27/connector-table-sql-api-part2), you will integrate this connector with an email inbox through the IMAP protocol. 
+In [part two](/2021/09/06/connector-table-sql-api-part2), you will integrate this connector with an email inbox through the IMAP protocol. 
