@@ -53,7 +53,7 @@ In order to connect to your IMAP server, you will need at least the following:
 - username
 - password
 
-You will start by creating a class to encapsulate the configuration options. You will make use of [Lombok](https://projectlombok.org/setup/maven) to help with some boilerplate code. By adding the `@Data` and `@SuperBuilder` annotations, Lombok will generate these for all the fields of the immutable class. 
+You will start by creating a class to encapsulate the configuration options. You will make use of [Lombok](https://projectlombok.org) to help with some boilerplate code. By adding the `@Data` and `@SuperBuilder` annotations, Lombok will generate these for all the fields of the immutable class. 
 
 ```java
 import lombok.Data;
