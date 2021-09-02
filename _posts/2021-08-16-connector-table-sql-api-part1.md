@@ -131,8 +131,8 @@ public class ImapTableSource implements ScanTableSource {
   @Override
   public ScanRuntimeProvider getScanRuntimeProvider(ScanContext ctx) {
     boolean bounded = true;
-    final ImapSourceFunction sourceFunction = new ImapSourceFunction();
-    return SourceFunctionProvider.of(sourceFunction, bounded);
+    final ImapSource source = new ImapSource();
+    return SourceFunctionProvider.of(source, bounded);
   }
 
   @Override
