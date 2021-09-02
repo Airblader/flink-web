@@ -289,7 +289,7 @@ public class ImapSource extends RichSourceFunction<RowData> {
         store = session.getStore();
         store.connect(options.getUser(), options.getPassword());
 
-        var genericFolder = store.getFolder("INBOX");
+        final Folder genericFolder = store.getFolder("INBOX");
         folder = (IMAPFolder) genericFolder;
 
         if (!folder.isOpen()) {
