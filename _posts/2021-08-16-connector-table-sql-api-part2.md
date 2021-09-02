@@ -207,7 +207,7 @@ public class ImapSourceFactory implements DynamicTableSourceFactory {
 <div class="note">
   <h5>Hint</h5>
   <p>
-    Ideally, you would use connector <a href="https://ci.apache.org/projects/flink/flink-docs-release-1.13/docs/connectors/table/overview/#metadata">metadata</a> for column names. You can refer again to the accompanying <a href="github.com/TNG/flink-connector-email">repository</a> which does implement this using metadata fields.
+    Ideally, you would use connector <a href="https://ci.apache.org/projects/flink/flink-docs-release-1.13/docs/connectors/table/overview/#metadata">metadata</a> instead of column names. You can refer again to the accompanying <a href="https://github.com/TNG/flink-connector-email">repository</a> which does implement this using metadata fields.
   </p>
 </div>
 
