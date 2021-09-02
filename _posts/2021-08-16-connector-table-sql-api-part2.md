@@ -486,7 +486,7 @@ Use the `mailx` command from earlier to send emails to the GreenMail server and 
 
 If you want to test the connector with a real mail server, you can import it into [Ververica Platform Community Edition](https://www.ververica.com/getting-started). To begin, make sure that you have the Ververica Platform up and running. 
 
-Since the example connector in this blog post is still a bit limited, you will use the finished connector in this [repository](github.com/TNG/flink-connector-email) instead. 
+Since the example connector in this blog post is still a bit limited, you will use the finished connector in this [repository](github.com/TNG/flink-connector-email) instead. You can clone that repository and build it the same way to obtain the JAR file.
 
 For this example, let's connect to a Gmail account. This requires SSL and comes with an additional caveat that you either need to enable unsafe apps (which tends to deactivate itself again frequently), or enable two-factor authentication and create an application password (which is more stable and safe). 
 
