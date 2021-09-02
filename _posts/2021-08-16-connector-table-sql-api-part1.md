@@ -90,7 +90,7 @@ In the `run()` method, you get access to a [context](https://ci.apache.org/proje
 import org.apache.flink.streaming.api.functions.source.RichSourceFunction;
 import org.apache.flink.table.data.GenericRowData;
 import org.apache.flink.table.data.RowData;
-import org.apache.flink.table.data.StringData
+import org.apache.flink.table.data.StringData;
 
 public class ImapSource extends RichSourceFunction<RowData> {
   @Override
