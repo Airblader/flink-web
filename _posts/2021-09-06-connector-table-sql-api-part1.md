@@ -169,7 +169,7 @@ import org.apache.flink.table.connector.source.DynamicTableSource;
 import org.apache.flink.table.factories.DynamicTableSourceFactory;
 import org.apache.flink.table.factories.FactoryUtil;
 
-public class ImapSourceFactory implements DynamicTableSourceFactory {
+public class ImapTableSourceFactory implements DynamicTableSourceFactory {
   @Override
   public String factoryIdentifier() {
     return "imap";

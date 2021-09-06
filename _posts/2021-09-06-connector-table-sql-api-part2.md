@@ -144,7 +144,7 @@ public class ImapTableSource implements ScanTableSource {
 }
 ```
 
-Finally, in the `ImapSourceFactory` class, you need to create a `ConfigOption<>` for the hostname, port number, username, and password.  Then you need to report them to Flink. Host, user, and password are mandatory and can be added to `requiredOptions()`; the port is optional and can be added to `optionalOptions()` instead.
+Finally, in the `ImapTableSourceFactory` class, you need to create a `ConfigOption<>` for the hostname, port number, username, and password.  Then you need to report them to Flink. Host, user, and password are mandatory and can be added to `requiredOptions()`; the port is optional and can be added to `optionalOptions()` instead.
 
 ```java
 import org.apache.flink.configuration.ConfigOption;
@@ -154,7 +154,7 @@ import org.apache.flink.table.factories.DynamicTableSourceFactory;
 import java.util.HashSet;
 import java.util.Set;
 
-public class ImapSourceFactory implements DynamicTableSourceFactory {
+public class ImapTableSourceFactory implements DynamicTableSourceFactory {
 
     public static final ConfigOption<String> HOST = ConfigOptions.key("host").stringType().noDefaultValue();
     public static final ConfigOption<Integer> PORT = ConfigOptions.key("port").intType().noDefaultValue();
@@ -182,7 +182,7 @@ public class ImapSourceFactory implements DynamicTableSourceFactory {
 }
 ```
 
-Now take a look at the `createDynamicTableSource()` function in the `ImapSourceFactory` class.  Recall that previously (in part one) you had created a small helper utility [TableFactoryHelper](https://ci.apache.org/projects/flink/flink-docs-master/api/java/org/apache/flink/table/factories/FactoryUtil.TableFactoryHelper.html), that Flink offers which ensures that required options are set and that no unknown options are provided. You can now use it to automatically make sure that the required options of hostname, port number, username, and password are all provided when creating a table using this connector. The helper function will throw an error message if one required option is missing. You can also use it to access the provided options (`getOptions()`), convert them into an instance of the `ImapTableSource` class created earlier, and provide the instance to the table source:
+Now take a look at the `createDynamicTableSource()` function in the `ImapTableSourceFactory` class.  Recall that previously (in part one) you had created a small helper utility [TableFactoryHelper](https://ci.apache.org/projects/flink/flink-docs-master/api/java/org/apache/flink/table/factories/FactoryUtil.TableFactoryHelper.html), that Flink offers which ensures that required options are set and that no unknown options are provided. You can now use it to automatically make sure that the required options of hostname, port number, username, and password are all provided when creating a table using this connector. The helper function will throw an error message if one required option is missing. You can also use it to access the provided options (`getOptions()`), convert them into an instance of the `ImapTableSource` class created earlier, and provide the instance to the table source:
 
 ```java
 import java.util.List;
@@ -191,7 +191,7 @@ import org.apache.flink.table.factories.DynamicTableSourceFactory;
 import org.apache.flink.table.factories.FactoryUtil;
 import org.apache.flink.table.catalog.Column;
 
-public class ImapSourceFactory implements DynamicTableSourceFactory {
+public class ImapTableSourceFactory implements DynamicTableSourceFactory {
 
     // ...
 
