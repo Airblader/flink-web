@@ -251,10 +251,9 @@ img.illu {margin:40px auto 60px;display:block;}
 }
 
 .note {
-    border-left: 2px solid #ccc;
-    padding: 4px 0 4px 8px;
+    padding: 8px;
     margin-bottom: 32px;
-	background-color: lightblue;
+    background-color: lightblue;
 }
 
 .note > h1, h2, h3, h4, h5, h6 {
