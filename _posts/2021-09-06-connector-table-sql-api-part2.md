@@ -22,7 +22,7 @@ Part two of the tutorial will teach you how to:
 
 - integrate a source connector which connects to a mailbox using the IMAP protocol
 - use [Jakarta Mail](https://eclipse-ee4j.github.io/mail/), a Java library that can send and receive email via the IMAP protocol  
-- write [Flink SQL](https://ci.apache.org/projects/flink/flink-docs-release-1.13/docs/dev/table/sql/overview/) and execute the queries in the Ververica Platform
+- write [Flink SQL](https://ci.apache.org/projects/flink/flink-docs-release-1.13/docs/dev/table/sql/overview/) and execute the queries in the Ververica Platform for a nicer visualization
 
 You are encouraged to follow along with the code in this [repository](https://github.com/Airblader/blog-imap). It provides a boilerplate project that also comes with a bundled [docker-compose](https://docs.docker.com/compose/) setup that lets you easily run the connector. You can then try it out with Flink’s SQL client.
 
@@ -41,7 +41,7 @@ Now that you have a working source connector that can run on Flink, it is time t
 
 You will use [Jakarta Mail](https://eclipse-ee4j.github.io/mail/), a Java library that can be used to send and receive email via IMAP. For simplicity, authentication will use a plain username and password.
 
-This tutorial will focus more on how to implement a connector for Flink. If you want to learn more about the details of how IMAP or Jakarta Mail work, you are encouraged to explore a more extensive implementation at this [repository](https://github.com/TNG/flink-connector-email). 
+This tutorial will focus more on how to implement a connector for Flink. If you want to learn more about the details of how IMAP or Jakarta Mail work, you are encouraged to explore a more extensive implementation at this [repository](https://github.com/TNG/flink-connector-email). It offers a wide range of information to be read from emails, as well as options to ingest existing emails alongside new ones, connecting with SSL, and more. It also supports different formats for reading email content and implements some connector abilities such as [reading metadata](https://ci.apache.org/projects/flink/flink-docs-release-1.13/api/java/org/apache/flink/table/connector/source/abilities/SupportsReadingMetadata.html).
 
 In order to fetch emails, you will need to connect to the email server, register a listener for new emails and collect them whenever they arrive, and enter a loop to keep the connector running. 
 
@@ -75,7 +75,7 @@ public class ImapSourceOptions implements Serializable {
 }
 ```
 
-Now you can add an instance of this class to the `ImapSource` and `ImapTableSource` classes previously created (in part one) so it can be used there. Take note of the column names with which the table has been created. This will help later.
+Now you can add an instance of this class to the `ImapSource` and `ImapTableSource` classes previously created (in part one) so it can be used there. Take note of the column names with which the table has been created. This will help later. You will also switch the source to be unbounded now as we will change the implementation in a bit to continuously listen for new emails.
 
 
 <div class="note">
@@ -131,8 +131,9 @@ public class ImapTableSource implements ScanTableSource {
 
     @Override
     public ScanRuntimeProvider getScanRuntimeProvider(ScanContext ctx) {
+        boolean bounded = false;
         final ImapSource source = new ImapSource(options, columnNames);
-        return SourceFunctionProvider.of(source, true);
+        return SourceFunctionProvider.of(source, bounded);
     }
 
     @Override
@@ -182,7 +183,7 @@ public class ImapTableSourceFactory implements DynamicTableSourceFactory {
 }
 ```
 
-Now take a look at the `createDynamicTableSource()` function in the `ImapTableSourceFactory` class.  Recall that previously (in part one) you had created a small helper utility [TableFactoryHelper](https://ci.apache.org/projects/flink/flink-docs-master/api/java/org/apache/flink/table/factories/FactoryUtil.TableFactoryHelper.html), that Flink offers which ensures that required options are set and that no unknown options are provided. You can now use it to automatically make sure that the required options of hostname, port number, username, and password are all provided when creating a table using this connector. The helper function will throw an error message if one required option is missing. You can also use it to access the provided options (`getOptions()`), convert them into an instance of the `ImapTableSource` class created earlier, and provide the instance to the table source:
+Now take a look at the `createDynamicTableSource()` function in the `ImapTableSourceFactory` class.  Recall that previously (in part one) you used a small helper utility [TableFactoryHelper](https://ci.apache.org/projects/flink/flink-docs-release-1.13/api/java/org/apache/flink/table/factories/FactoryUtil.TableFactoryHelper.html), that Flink offers which ensures that required options are set and that no unknown options are provided. You can now use it to automatically make sure that the required options of hostname, port number, username, and password are all provided when creating a table using this connector. The helper function will throw an error message if one required option is missing. You can also use it to access the provided options (`getOptions()`), convert them into an instance of the `ImapTableSource` class created earlier, and provide the instance to the table source:
 
 ```java
 import java.util.List;
@@ -358,7 +359,10 @@ public class ImapSource extends RichSourceFunction<RowData> {
 
 There is a request trigger to the server in every loop iteration. This is crucial as it ensures that the server will keep sending notifications. A more sophisticated approach would be to make use of the IDLE protocol. 
 
-Note that since the source is not checkpointable, no state fault tolerance will be possible.
+<div class="note">
+  <h5>Note</h5>
+  <p>Since the source is not checkpointable, no state fault tolerance will be possible.</p>
+</div>
 
 
 ## Collect incoming emails

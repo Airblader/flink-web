@@ -46,7 +46,7 @@ In order to create a connector which works with Flink, you need:
 
 1. A _factory class_ (a blueprint for creating other objects from string properties) that tells Flink with which identifier (in this case, “imap”) our connector can be addressed, which configuration options it exposes, and how the connector can be instantiated. Since Flink uses the Java Service Provider Interface (SPI) to discover factories located in different modules, you will also need to add some configuration details.
 
-2. The _table source_ object as a specific instance of the connector during the planning stage. It is responsible for back and forth communication with the optimizer during the planning stage and is like another factory for creating connector runtime implementation. There are also more advanced features, such as [abilities](https://ci.apache.org/projects/flink/flink-docs-master/api/java/org/apache/flink/table/connector/source/abilities/package-summary.html), that can be implemented to improve connector performance. 
+2. The _table source_ object as a specific instance of the connector during the planning stage. It is responsible for back and forth communication with the optimizer during the planning stage and is like another factory for creating connector runtime implementation. There are also more advanced features, such as [abilities](https://ci.apache.org/projects/flink/flink-docs-release-1.13/api/java/org/apache/flink/table/connector/source/abilities/package-summary.html), that can be implemented to improve connector performance. 
 
 3. A _runtime implementation_ from the connector obtained during the planning stage. The runtime logic is implemented in Flink's core connector interfaces and does the actual work of producing rows of dynamic table data. The runtime instances are shipped to the Flink cluster. 
 
@@ -56,11 +56,11 @@ Let us look at this sequence (factory class → table source → runtime impleme
 
 You first need to have a source connector which can be used in Flink's runtime system, defining how data goes in and how it can be executed in the cluster. There are a few different interfaces available for implementing the actual source of the data and have it be discoverable in Flink.  
 
-For complex connectors, you may want to implement the [Source interface](https://ci.apache.org/projects/flink/flink-docs-master/api/java/org/apache/flink/api/connector/source/Source.html) which gives you a lot of control. For simpler use cases, you can use the [SourceFunction interface](https://ci.apache.org/projects/flink/flink-docs-master/api/java/org/apache/flink/streaming/api/functions/source/SourceFunction.html). There are already a few different implementations of SourceFunction interfaces for common use cases such as the [FromElementsFunction](https://ci.apache.org/projects/flink/flink-docs-master/api/java/org/apache/flink/streaming/api/functions/source/FromElementsFunction.html) class and the [RichSourceFunction](https://ci.apache.org/projects/flink/flink-docs-master/api/java/org/apache/flink/streaming/api/functions/source/RichSourceFunction.html) class. You will use the latter.  
+For complex connectors, you may want to implement the [Source interface](https://ci.apache.org/projects/flink/flink-docs-release-1.13/api/java/org/apache/flink/api/connector/source/Source.html) which gives you a lot of control. For simpler use cases, you can use the [SourceFunction interface](https://ci.apache.org/projects/flink/flink-docs-release-1.13/api/java/org/apache/flink/streaming/api/functions/source/SourceFunction.html). There are already a few different implementations of SourceFunction interfaces for common use cases such as the [FromElementsFunction](https://ci.apache.org/projects/flink/flink-docs-release-1.13/api/java/org/apache/flink/streaming/api/functions/source/FromElementsFunction.html) class and the [RichSourceFunction](https://ci.apache.org/projects/flink/flink-docs-release-1.13/api/java/org/apache/flink/streaming/api/functions/source/RichSourceFunction.html) class. You will use the latter.  
 
 <div class="note">
   <h5>Hint</h5>
-  <p>The Source interface is the new abstraction whereas the SourceFunction interface is old. 
+  <p>The Source interface is the new abstraction whereas the SourceFunction interface is slowly phasing out. 
      All connectors will eventually implement the Source interface.
   </p>
 </div>
@@ -86,7 +86,7 @@ public class ImapSource extends RichSourceFunction<RowData> {
 
 Note that internal data structures (`RowData`) are used because that is required by the table runtime.
 
-In the `run()` method, you get access to a [context](https://ci.apache.org/projects/flink/flink-docs-master/api/java/org/apache/flink/streaming/api/functions/source/SourceFunction.SourceContext.html) object inherited from the SourceFunction interface, which is a bridge to Flink and allows you to output data. Since the source does not produce any data yet, the next step is to make it produce some static data in order to test that the data flows correctly: 
+In the `run()` method, you get access to a [context](https://ci.apache.org/projects/flink/flink-docs-release-1.13/api/java/org/apache/flink/streaming/api/functions/source/SourceFunction.SourceContext.html) object inherited from the SourceFunction interface, which is a bridge to Flink and allows you to output data. Since the source does not produce any data yet, the next step is to make it produce some static data in order to test that the data flows correctly: 
 
 ```java
 import org.apache.flink.streaming.api.functions.source.RichSourceFunction;
@@ -114,7 +114,7 @@ You do not need to implement the `cancel()` method yet because the source finish
 
 [Dynamic tables](https://ci.apache.org/projects/flink/flink-docs-release-1.13/docs/dev/table/concepts/dynamic_tables/) are the core concept of Flink’s Table API and SQL support for streaming data and, like its name suggests, change over time. You can imagine a data stream being logically converted into a table that is constantly changing. For this tutorial, the emails that will be read in will be interpreted as a (source) table that is queryable. It can be viewed as a specific instance of a connector class. 
 
-You will now implement a [DynamicTableSource](https://ci.apache.org/projects/flink/flink-docs-master/api/java/org/apache/flink/table/connector/source/DynamicTableSource.html) interface. There are two types of dynamic table sources: [ScanTableSource](https://ci.apache.org/projects/flink/flink-docs-master/api/java/org/apache/flink/table/connector/source/ScanTableSource.html) and [LookupTableSource](https://ci.apache.org/projects/flink/flink-docs-master/api/java/org/apache/flink/table/connector/source/LookupTableSource.html). Scan sources read the entire table on the external system while lookup sources look for specific rows based on keys. The former will fit the use case of this tutorial. 
+You will now implement a [DynamicTableSource](https://ci.apache.org/projects/flink/flink-docs-release-1.13/api/java/org/apache/flink/table/connector/source/DynamicTableSource.html) interface. There are two types of dynamic table sources: [ScanTableSource](https://ci.apache.org/projects/flink/flink-docs-release-1.13/api/java/org/apache/flink/table/connector/source/ScanTableSource.html) and [LookupTableSource](https://ci.apache.org/projects/flink/flink-docs-release-1.13/api/java/org/apache/flink/table/connector/source/LookupTableSource.html). Scan sources read the entire table on the external system while lookup sources look for specific rows based on keys. The former will fit the use case of this tutorial. 
 
 This is what a scan table source implementation would look like:
 
@@ -149,9 +149,9 @@ public class ImapTableSource implements ScanTableSource {
 }
 ```
 
-[ChangelogMode](https://ci.apache.org/projects/flink/flink-docs-master/api/java/org/apache/flink/table/connector/ChangelogMode.html) informs Flink of expected changes that the planner can expect during runtime. For example, whether the source produces only new rows, also updates to existing ones, or whether it can remove previously produced rows. Our source will only produce (`insertOnly()`) new rows.
+[ChangelogMode](https://ci.apache.org/projects/flink/flink-docs-release-1.13/api/java/org/apache/flink/table/connector/ChangelogMode.html) informs Flink of expected changes that the planner can expect during runtime. For example, whether the source produces only new rows, also updates to existing ones, or whether it can remove previously produced rows. Our source will only produce (`insertOnly()`) new rows.
 
-[ScanRuntimeProvider](https://ci.apache.org/projects/flink/flink-docs-master/api/java/org/apache/flink/table/connector/source/ScanTableSource.ScanRuntimeProvider.html) allows Flink to create the actual runtime implementation you established previously (for reading the data). Flink even provides utilities like [SourceFunctionProvider](https://ci.apache.org/projects/flink/flink-docs-master/api/java/org/apache/flink/table/connector/source/SourceFunctionProvider.html) to wrap it into an instance of [SourceFunction](https://ci.apache.org/projects/flink/flink-docs-master/api/java/org/apache/flink/streaming/api/functions/source/SourceFunction.html), which is one of the base runtime interfaces.
+[ScanRuntimeProvider](https://ci.apache.org/projects/flink/flink-docs-release-1.13/api/java/org/apache/flink/table/connector/source/ScanTableSource.ScanRuntimeProvider.html) allows Flink to create the actual runtime implementation you established previously (for reading the data). Flink even provides utilities like [SourceFunctionProvider](https://ci.apache.org/projects/flink/flink-docs-release-1.13/api/java/org/apache/flink/table/connector/source/SourceFunctionProvider.html) to wrap it into an instance of [SourceFunction](https://ci.apache.org/projects/flink/flink-docs-release-1.13/api/java/org/apache/flink/streaming/api/functions/source/SourceFunction.html), which is one of the base runtime interfaces.
 
 You will also need to indicate whether the source is bounded or not. Currently, this is the case but you will have to change this later. 
 
@@ -159,7 +159,7 @@ You will also need to indicate whether the source is bounded or not. Currently, 
 
 You now have a working source connector, but in order to use it in Table API or SQL, it needs to be discoverable by Flink. You also need to define how the connector is addressable from a SQL statement when creating a source table. 
 
-You need to implement a [Factory](https://ci.apache.org/projects/flink/flink-docs-master/api/java/org/apache/flink/table/factories/Factory.html), which is a base interface that creates object instances from a list of key-value pairs in Flink's Table API and SQL.  A factory is uniquely identified by its class name and `factoryIdentifier()`.  For this tutorial, you will implement the more specific [DynamicTableSourceFactory](https://ci.apache.org/projects/flink/flink-docs-master/api/java/org/apache/flink/table/factories/DynamicTableSourceFactory.html), which allows you to configure a dynamic table connector as well as create `DynamicTableSource` instances.  
+You need to implement a [Factory](https://ci.apache.org/projects/flink/flink-docs-release-1.13/api/java/org/apache/flink/table/factories/Factory.html), which is a base interface that creates object instances from a list of key-value pairs in Flink's Table API and SQL.  A factory is uniquely identified by its class name and `factoryIdentifier()`.  For this tutorial, you will implement the more specific [DynamicTableSourceFactory](https://ci.apache.org/projects/flink/flink-docs-release-1.13/api/java/org/apache/flink/table/factories/DynamicTableSourceFactory.html), which allows you to configure a dynamic table connector as well as create `DynamicTableSource` instances.  
 
 ```java
 import java.util.HashSet;
@@ -195,7 +195,7 @@ public class ImapTableSourceFactory implements DynamicTableSourceFactory {
 }
 ```
 
-There are currently no configuration options but they can be added and also validated within the `createDynamicTableSource()` function. There is a small helper utility, [TableFactoryHelper](https://ci.apache.org/projects/flink/flink-docs-master/api/java/org/apache/flink/table/factories/FactoryUtil.TableFactoryHelper.html), that Flink offers which ensures that required options are set and that no unknown options are provided.
+There are currently no configuration options but they can be added and also validated within the `createDynamicTableSource()` function. There is a small helper utility, [TableFactoryHelper](https://ci.apache.org/projects/flink/flink-docs-release-1.13/api/java/org/apache/flink/table/factories/FactoryUtil.TableFactoryHelper.html), that Flink offers which ensures that required options are set and that no unknown options are provided.
 
 Finally, you need to register your factory for Java's Service Provider Interfaces (SPI). Classes that implement this interface can be discovered and should be added to this file `src/main/resources/META-INF/services/org.apache.flink.table.factories.Factory` with the fully classified class name of your factory:
 
